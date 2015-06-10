@@ -20,6 +20,8 @@ travelToSFI = students %>%
   mutate(dist = gdist(lon, lat, longitude.sfi, latitude.sfi)) %>%
   arrange(desc(dist))
 
+save(travelToSFI, file="travelToSFI.Rdata")
+
 pb <- txtProgressBar(min = 1, max = nrow(travelToSFI), style = 3)
 tripsList = lapply(1:nrow(travelToSFI),greatCircles,travelToSFI, pb)
 allTrips = rbindlist(tripsList)
@@ -27,10 +29,11 @@ allTrips = rbindlist(tripsList)
 allTripsShift = allTrips
 
 ggplot() + 
-  geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.4, colour="#000000") +
+  geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.4, colour="#FFFFFF") +
   coord_fixed(ratio=1) +
-  theme(plot.background = element_rect(fill="#FFFFFF"),
-        panel.background = element_rect(fill="#FFFFFF"),
+  theme(plot.background = element_rect(fill="#000000"),
+        panel.background = element_rect(fill="#000000"),
+        plot.title = element_text(size=18, colour="#FFFFFF"),
         axis.line = element_blank(),
         axis.text.x = element_blank(),
         axis.text.y = element_blank(),
@@ -38,7 +41,10 @@ ggplot() +
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+        panel.grid.minor = element_blank()) + 
+  ggtitle("FRONT Left Breast")
+
+ggsave("students-front.png", width=8, height=5, dpi=100)
 
 # read shapefile
 wmap <- readOGR(dsn="./shape-files/ne_110m_land", layer="ne_110m_land")
@@ -66,4 +72,5 @@ ggplot() +
         legend.key.width = unit(0.1, "npc"),
         legend.text = element_text(colour="#FFFFFF")) +
   geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.5, colour="#FFFFFF") +
-  ggtitle("Complex Systems Summer School\n2015")
+  ggtitle("BACK")
+ggsave("students-back.png", width=8, height=5, dpi=100)

@@ -10,19 +10,29 @@ suppressPackageStartupMessages(require(rgdal))
 suppressPackageStartupMessages(require(stringr))
 suppressPackageStartupMessages(require(memoise))
 
-# set this shorter than the cron period
-cacheTime = 60*60 # one hour
 
-# Using this function from 
-# https://gist.github.com/hadley/9537581
-# I was trying to use the built-in geocode from ggmaps, but I could not get
-# ggmaps installed on CENTOS
-geoCode <- function(address,verbose=FALSE) {
+
+#' geoCode
+#'
+#' geoCodes an address.
+#'
+#' Using this function from 
+#' https://gist.github.com/hadley/9537581
+#' I was trying to use the built-in geocode from ggmaps, but I could not get
+#' ggmaps installed on CENTOS
+#'
+#' @param address doesn't have to be an actual address, but needs to resolve uniquely for the Google API
+#'
+#' @return
+#' @export
+#'
+#' @examples
+geoCode <- function(address) {
   # sleep for a bit to ensure that we don't flood Google
   Sys.sleep(0.25) 
   base_url <- "https://maps.google.com/maps/api/geocode/json"
   
-  r <- GET(base_url, query = list(address = address, sensor = "false", key="AIzaSyB7T6RN3fICdSVJL-LjqPcBsGkOuL6mm0c"))
+  r <- GET(base_url, query = list(address = address, sensor = "false"))
   stop_for_status(r)
   
   result <- content(r)
@@ -44,13 +54,27 @@ geoCode <- function(address,verbose=FALSE) {
 m_geoCode = memoise(geoCode)
 
 # calculates the great circle segments for the i'th lat/lon point in the plotData parameter
+
+#' greatCircles
+#' 
+#' Calculates the segments that comprising a Great Circle Arc
+#'
+#' @param i 
+#' @param myPlot 
+#' @param pb 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 greatCircles = function(i, myPlot, pb) {
   inter = gcIntermediate(c(myPlot[[i,"lon"]],myPlot[[i, "lat"]]),
                          c(myPlot[[i,"longitude.sfi"]],myPlot[[i, "latitude.sfi"]]),
                          n=100, addStartEnd=T, breakAtDateLine=T)
   
-  #the order of creating the columns is important because of the rbindlist
-  #function used elsewhere in this script - create seg and then trip
+  # if inter is a list, then we know that we crossed the int'l date line, so we need to
+  # assemble the list into a data frame, but with the segmentNumber and tripNumber define
+  # to discriminate between the right and left arcs
   if(is.list(inter)){
     inter1 = as.data.frame(inter[[1]])
     inter2 = as.data.frame(inter[[2]])
