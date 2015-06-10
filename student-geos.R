@@ -44,7 +44,7 @@ ggplot() +
         panel.grid.minor = element_blank()) + 
   ggtitle("FRONT Left Breast")
 
-ggsave("students-front.png", width=8, height=5, dpi=100)
+ggsave("students-front.png", width=6, height=4, dpi=100)
 
 # read shapefile
 wmap <- readOGR(dsn="./shape-files/ne_110m_land", layer="ne_110m_land")
@@ -73,4 +73,4 @@ ggplot() +
         legend.text = element_text(colour="#FFFFFF")) +
   geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.5, colour="#FFFFFF") +
   ggtitle("BACK")
-ggsave("students-back.png", width=8, height=5, dpi=100)
+ggsave("students-back.png", width=6, height=4, dpi=100)
