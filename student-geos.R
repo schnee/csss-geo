@@ -2,28 +2,46 @@ require(readr)
 
 source("./helpers.R")
 
+# read in the student locations
 students = read_csv("./students.csv")
-geocoded=lapply(students$location, geoCode)
-sfi = geoCode("Santa Fe Institue")
 
+# geocode all of the students
+geocoded=lapply(students$location, geoCode)
 
 save(geocoded, file="geocoded.RData")
+
+#augment the student dataframe with the geocoded address, lon and lat
 students$address = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$address} else({NA})))
 students$lon = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$lng} else({NA})))
 students$lat = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$lat} else({NA})))
 
+#SFI
 students$longitude.sfi = -105.9086
 students$latitude.sfi = 35.70028
 
+# create the travel Data Frame. First, take the students, then filter by not NA values
+# then create a "dist" column then arrange by dist descending
 travelToSFI = students %>% 
   filter(!is.na(lon)) %>% filter(!is.na(lat)) %>%
   mutate(dist = gdist(lon, lat, longitude.sfi, latitude.sfi)) %>%
   arrange(desc(dist))
 
+#write this out so we don't have to do it again
 save(travelToSFI, file="travelToSFI.Rdata")
 
+# some descriptive visuals, many of which are silly
+ggplot(travelToSFI, aes(x=dist)) + geom_bar()
+ggplot(travelToSFI, aes(x=dist)) + geom_density()
+ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
+ggplot(travelToSFI, aes(x=lon)) + geom_density()
+ggplot(travelToSFI, aes(x=lat)) + geom_density()
+
 pb <- txtProgressBar(min = 1, max = nrow(travelToSFI), style = 3)
+
+# get all of the great circle segments
 tripsList = lapply(1:nrow(travelToSFI),greatCircles,travelToSFI, pb)
+
+# create a ginormous data frame from the trips list (not really ginormous)
 allTrips = rbindlist(tripsList)
 
 allTripsShift = allTrips
@@ -46,7 +64,7 @@ ggplot() +
 
 ggsave("students-front.png", width=6, height=4, dpi=100)
 
-# read shapefile
+# read shapefile. Just land boundaries
 wmap <- readOGR(dsn="./shape-files/ne_110m_land", layer="ne_110m_land")
 # convert to dataframe
 wmap_df <- fortify(wmap)
