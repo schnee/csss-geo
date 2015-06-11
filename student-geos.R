@@ -69,7 +69,7 @@ wmap <- readOGR(dsn="./shape-files/ne_110m_land", layer="ne_110m_land")
 # convert to dataframe
 wmap_df <- fortify(wmap)
 
-ggplot() + 
+baseworld = ggplot() + 
   geom_polygon( data=wmap_df, aes(x=long, y=lat, group=group, fill=hole),size=0.1, fill="#000000", colour="#FFFFFF")+
   #scale_fill_manual(values=c("#333333", "#000000"), guide="none") +     
   coord_fixed(ratio=1) +
@@ -88,7 +88,23 @@ ggplot() +
         legend.background =  element_rect(fill = "#000000"),
         legend.key = element_rect(fill = "#000000"),
         legend.key.width = unit(0.1, "npc"),
-        legend.text = element_text(colour="#FFFFFF")) +
-  geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.5, colour="#FFFFFF") +
+        legend.text = element_text(colour="#FFFFFF"))
+
+
+baseworld + geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.5, colour="#FFFFFF") +
   ggtitle("BACK")
-ggsave("students-back.png", width=6, height=4, dpi=100)
+
+baseworld + geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber, colour=segNumber), size=.5) +
+  scale_colour_gradient("", low="#FFFFFF", high="#0000FF", labels=c("Home", "SFI"),breaks=c(1,100)) 
+  
+
+ggsave("students-back-big.png", width=12, height=8, dpi=100)
+
+####
+# Experimental Crap
+###
+wmap_shift = spTransform(wmap, CRS("+proj=longlat +lon_0=90w"))
+wmap_df = fortify(wmap_shift)
+ggplot() +
+  geom_polygon( data=wmap_df, aes(x=long, y=lat, group=group, fill=hole),size=0.1, fill="#000000", colour="#FFFFFF")
+
