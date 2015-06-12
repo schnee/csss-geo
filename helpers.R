@@ -85,43 +85,12 @@ greatCircles = function(i, myPlot, pb) {
     inter1$tripNumber=paste("trip",i,1,sep=".")
     inter2$tripNumber=paste("trip",i,2,sep=".")
     
-    inter=rbind(inter1,inter2)
+    inter_df=rbind(inter1,inter2)
   }else{
-    inter = as.data.frame(inter)
-    inter$segNumber = seq(1:nrow(inter))
-    inter$tripNumber = paste("trip", i, sep=".") 
+    inter_df = as.data.frame(inter)
+    inter_df$segNumber = seq(1:nrow(inter))
+    inter_df$tripNumber = paste("trip", i, sep=".") 
   }
   setTxtProgressBar(pb, i)
-  return(inter)
-}
-
-
-getWorldView = function(wmap_df) {
-  
-  
-  HomeAwayYellow = "#FED863"
-  HomeAwayBlue = "#2A6EBB"
-  HomeAwayGreen = "#839E73"
-  
-  worldView = ggplot() + 
-    geom_polygon( data=wmap_df, aes(x=long, y=lat, group=group, fill=hole))+
-    scale_fill_manual(values=c("#333333", "#000000"), guide="none") + # change colors & remove legend
-    scale_colour_gradient("", low=HomeAwayBlue, high=HomeAwayYellow, labels=c("Home", "HomeAway"),breaks=c(1,50)) +
-    coord_fixed(ratio=1) +
-    theme(plot.background = element_rect(fill="#000000"), 
-          plot.title = element_text(colour = HomeAwayYellow, size=18),
-          panel.background = element_rect(fill="#000000"),
-          axis.line = element_blank(),
-          axis.text.x = element_blank(),
-          axis.text.y = element_blank(),
-          axis.ticks = element_blank(),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank(),
-          legend.position="bottom",
-          legend.background =  element_rect(fill = "#000000"),
-          legend.key = element_rect(fill = "#000000"),
-          legend.key.width = unit(0.1, "npc"),
-          legend.text = element_text(colour="#FFFFFF")) 
+  return(inter_df)
 }
