@@ -6,7 +6,7 @@ source("./helpers.R")
 students = read_csv("./students.csv")
 
 # geocode all of the students
-geocoded=lapply(students$location, m_geoCode)
+geocoded = lapply(students$location, m_geoCode)
 
 save(geocoded, file="geocoded.RData")
 
