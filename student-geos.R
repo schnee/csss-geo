@@ -1,4 +1,10 @@
-require(readr)
+suppressPackageStartupMessages(require(readr))
+suppressPackageStartupMessages(require(Imap))
+suppressPackageStartupMessages(require(dplyr))
+suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(grid))
+suppressPackageStartupMessages(require(data.table))
+suppressPackageStartupMessages(require(rgdal))
 
 source("./helpers.R")
 
@@ -94,6 +100,7 @@ baseworld = ggplot() +
         legend.key.width = unit(0.1, "npc"),
         legend.text = element_text(colour="#FFFFFF"))
 
+baseworld
 
 baseworld + geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.5, colour="#FFFFFF") +
   ggtitle("BACK")

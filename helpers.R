@@ -1,16 +1,6 @@
-suppressPackageStartupMessages(require(dplyr))
-suppressPackageStartupMessages(require(ggplot2))
-suppressPackageStartupMessages(require(grid))
-suppressPackageStartupMessages(require(RCurl))
-suppressPackageStartupMessages(require(Imap))
 suppressPackageStartupMessages(require(geosphere))
 suppressPackageStartupMessages(require(httr))
-suppressPackageStartupMessages(require(data.table))
-suppressPackageStartupMessages(require(rgdal))
-suppressPackageStartupMessages(require(stringr))
 suppressPackageStartupMessages(require(memoise))
-
-
 
 #' geoCode
 #'
