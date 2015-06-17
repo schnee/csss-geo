@@ -35,9 +35,13 @@ travelToSFI = students %>%
 #write this out so we don't have to do it again
 save(travelToSFI, file="travelToSFI.Rdata")
 
+# some descriptive stats
+fivenum(travelToSFI$dist)
+summary(travelToSFI$dist)
+
 # some descriptive visuals, many of which are silly
 ggplot(travelToSFI, aes(x=dist)) + geom_bar()
-ggplot(travelToSFI, aes(x=dist)) + geom_density()
+ggplot(travelToSFI, aes(x=dist)) + geom_density(adjust=1)
 ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
 ggplot(travelToSFI, aes(x=lon)) + geom_density()
 ggplot(travelToSFI, aes(x=lat)) + geom_density()
