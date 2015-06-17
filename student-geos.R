@@ -36,6 +36,9 @@ ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
 ggplot(travelToSFI, aes(x=lon)) + geom_density()
 ggplot(travelToSFI, aes(x=lat)) + geom_density()
 
+# why not both?
+ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
+
 pb <- txtProgressBar(min = 1, max = nrow(travelToSFI), style = 3)
 
 # get all of the great circle segments
@@ -101,7 +104,12 @@ ggsave("students-back.png", width=6, height=4, dpi=100)
 baseworld + geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber, colour=segNumber), size=.5) +
   scale_colour_gradient("", low="#FFFFFF", high="#0000FF", labels=c("Home", "SFI"),breaks=c(1,100)) 
   
+# ok, put the 2d KDE on top of the map
+baseworld + geom_density2d(data=travelToSFI, aes(x=lon, y=lat))
 
+# or get "fancy"
+baseworld + stat_density2d(data=travelToSFI, aes(x=lon, y=lat, fill=..level..), geom="polygon", alpha=0.5) +
+  scale_fill_gradient(low="blue", high="red")
 
 ####
 # Experimental Crap
