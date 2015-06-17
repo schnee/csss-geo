@@ -39,6 +39,7 @@ ggplot(travelToSFI, aes(x=lat)) + geom_density()
 # why not both?
 ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
 
+# nice to give some progress if possible
 pb <- txtProgressBar(min = 1, max = nrow(travelToSFI), style = 3)
 
 # get all of the great circle segments
