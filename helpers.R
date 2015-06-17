@@ -1,6 +1,6 @@
-suppressPackageStartupMessages(require(geosphere))
-suppressPackageStartupMessages(require(httr))
-suppressPackageStartupMessages(require(memoise))
+suppressPackageStartupMessages(library(geosphere))
+suppressPackageStartupMessages(library(httr))
+suppressPackageStartupMessages(library(memoise))
 
 #' geoCode
 #'

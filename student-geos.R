@@ -1,10 +1,20 @@
-suppressPackageStartupMessages(require(readr))
-suppressPackageStartupMessages(require(Imap))
-suppressPackageStartupMessages(require(dplyr))
-suppressPackageStartupMessages(require(ggplot2))
-suppressPackageStartupMessages(require(grid))
-suppressPackageStartupMessages(require(data.table))
-suppressPackageStartupMessages(require(rgdal))
+requiredPackages = c("readr","dplyr",
+                     "Imap","ggplot2", 
+                     "data.table","grid",
+                     "rgdal","geosphere",
+                     "memoise","rgdal")
+
+toInstall <- requiredPackages[!(requiredPackages %in% installed.packages()[,"Package"])]
+
+if(length(toInstall)) install.packages(toInstall)
+
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(Imap))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(grid))
+suppressPackageStartupMessages(library(data.table))
+suppressPackageStartupMessages(library(rgdal))
 
 source("./helpers.R")
 
