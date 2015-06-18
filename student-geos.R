@@ -64,8 +64,13 @@ ggplot(travelToSFI, aes(x=dist)) + geom_density(adjust=1)
 
 # OK, what if we want an area under that curve?
 kde = density(travelToSFI$dist)
+kde_df = data.frame(x=kde$x, y=kde$y)
+
+ggplot(travelToSFI, aes(x=dist)) + geom_density() + 
+  geom_ribbon(data=subset(kde_df, x>2000 & x< 5000), aes(x=x, ymax=y), ymin=0, fill="#FF0000")
+
 kde_fun = approxfun(kde$x,kde$y)
-integrate(kde_fun, 2000, 4000) # mass!
+integrate(kde_fun, 2000, 5000) # mass!
 
 ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
 
