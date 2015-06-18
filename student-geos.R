@@ -29,6 +29,11 @@ geocoded = lapply(students$location, m_geoCode)
 
 save(geocoded, file="geocoded.RData")
 
+sfi <- "The Santa Fe Institute"
+microbenchmark::microbenchmark(geoCode(sfi), 
+                               m_geoCode(sfi), 
+                               times = 5)
+
 #augment the student dataframe with the geocoded address, lon and lat
 students$address = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$address} else({NA})))
 students$lon = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$lng} else({NA})))
