@@ -30,9 +30,11 @@ geocoded = lapply(students$location, m_geoCode)
 save(geocoded, file="geocoded.RData")
 
 sfi <- "The Santa Fe Institute"
-microbenchmark::microbenchmark(geoCode(sfi), 
-                               m_geoCode(sfi), 
-                               times = 5)
+bench = microbenchmark::microbenchmark(geoCode(sfi), 
+                                       m_geoCode(sfi), 
+                                       times = 5)
+bench
+autoplot(bench)
 
 #augment the student dataframe with the geocoded address, lon and lat
 students$address = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$address} else({NA})))
@@ -148,7 +150,7 @@ ggsave("students-back.png", width=6, height=4, dpi=100)
 # add a gradient to the path
 baseworld + geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber, colour=segNumber), size=.5) +
   scale_colour_gradient("", low="#FFFFFF", high="#0000FF", labels=c("Home", "SFI"),breaks=c(1,100)) 
-  
+
 # ok, put the 2d KDE on top of the map
 baseworld + geom_density2d(data=travelToSFI, aes(x=lon, y=lat))
 
