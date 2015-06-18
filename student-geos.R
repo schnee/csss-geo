@@ -65,6 +65,7 @@ ggplot(travelToSFI, aes(x=dist)) + geom_density(adjust=1)
 
 
 # OK, what if we want an area under that kernel density estimate curve?
+# (I don't know why)
 kde = density(travelToSFI$dist)
 kde_df = data.frame(x=kde$x, y=kde$y)
 
