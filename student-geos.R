@@ -1,8 +1,10 @@
 requiredPackages = c("readr","dplyr",
                      "Imap","ggplot2", 
+                     "gridExtra",
                      "data.table","grid",
                      "rgdal","geosphere",
-                     "memoise","rgdal")
+                     "memoise","rgdal", 
+                     "httr")
 
 toInstall <- requiredPackages[!(requiredPackages %in% installed.packages()[,"Package"])]
 
@@ -13,6 +15,7 @@ suppressPackageStartupMessages(library(Imap))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(grid))
+suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(data.table))
 suppressPackageStartupMessages(library(rgdal))
 
@@ -52,13 +55,28 @@ summary(travelToSFI$dist)
 # some descriptive visuals, many of which are silly
 ggplot(travelToSFI, aes(x=dist)) + geom_bar()
 ggplot(travelToSFI, aes(x=dist)) + geom_density(adjust=1)
+
+# OK, what if we want an area under that curve?
+kde = density(travelToSFI$dist)
+kde_fun = approxfun(kde$x,kde$y)
+integrate(kde_fun, 2000, 4000) # mass!
+
 ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
-ggplot(travelToSFI, aes(x=lon)) + geom_density()
-ggplot(travelToSFI, aes(x=lat)) + geom_density()
+
+lons = ggplot(travelToSFI, aes(x=lon)) + geom_density()
+lons 
+lats = ggplot(travelToSFI, aes(x=lat)) + geom_density()
+lats
 
 # why not both?
-ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
+both = ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
 
+# or even...
+grid.arrange(lons, empty, both, lats + coord_flip(), 
+             ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+
+
+# OK enough of that
 # nice to give some progress if possible
 pb <- txtProgressBar(min = 1, max = nrow(travelToSFI), style = 3)
 

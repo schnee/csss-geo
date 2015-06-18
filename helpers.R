@@ -1,6 +1,7 @@
 suppressPackageStartupMessages(library(geosphere))
 suppressPackageStartupMessages(library(httr))
 suppressPackageStartupMessages(library(memoise))
+suppressPackageStartupMessages(library(ggplot2))
 
 #' geoCode
 #'
@@ -84,3 +85,18 @@ greatCircles = function(i, myPlot, pb) {
   setTxtProgressBar(pb, i)
   return(inter_df)
 }
+
+#placeholder plot - prints nothing at all
+empty <- ggplot()+geom_point(aes(1,1), colour="white") +
+  theme(                              
+    plot.background = element_blank(), 
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), 
+    panel.border = element_blank(), 
+    panel.background = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank()
+  )
