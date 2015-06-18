@@ -1,10 +1,9 @@
 requiredPackages = c("readr","dplyr",
                      "Imap","ggplot2", 
-                     "gridExtra",
                      "data.table","grid",
                      "rgdal","geosphere",
                      "memoise","rgdal", 
-                     "httr")
+                     "gridExtra","httr")
 
 toInstall <- requiredPackages[!(requiredPackages %in% installed.packages()[,"Package"])]
 
@@ -79,11 +78,12 @@ lats
 both = ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
 
 # or even...
-grid.arrange(lons, empty, both, lats + coord_flip(), 
-             ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+grid.arrange(lons, titlePlot, both, lats + coord_flip(), 
+             ncol=2, nrow=2, widths=c(3, 1), heights=c(1, 3))
 
-
-# OK enough of that
+#
+# OK enough of that, where are the great circle arcs?
+#
 # nice to give some progress if possible
 pb <- txtProgressBar(min = 1, max = nrow(travelToSFI), style = 3)
 
