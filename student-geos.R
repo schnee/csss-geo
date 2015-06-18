@@ -60,9 +60,11 @@ summary(travelToSFI$dist)
 
 # some descriptive visuals, many of which are silly
 ggplot(travelToSFI, aes(x=dist)) + geom_bar()
+ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
 ggplot(travelToSFI, aes(x=dist)) + geom_density(adjust=1)
 
-# OK, what if we want an area under that curve?
+
+# OK, what if we want an area under that kernel density estimate curve?
 kde = density(travelToSFI$dist)
 kde_df = data.frame(x=kde$x, y=kde$y)
 
@@ -72,8 +74,7 @@ ggplot(travelToSFI, aes(x=dist)) + geom_density() +
 kde_fun = approxfun(kde$x,kde$y)
 integrate(kde_fun, 2000, 5000) # mass!
 
-ggplot(travelToSFI, aes(x=1, y=dist)) + geom_boxplot()
-
+# moving to geography now
 lons = ggplot(travelToSFI, aes(x=lon)) + geom_density()
 lons 
 lats = ggplot(travelToSFI, aes(x=lat)) + geom_density()
@@ -81,6 +82,7 @@ lats
 
 # why not both?
 both = ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
+both
 
 # or even...
 grid.arrange(lons, titlePlot, both, lats + coord_flip(), 
