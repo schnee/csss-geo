@@ -1,67 +1,67 @@
-name,location,location2
-Alejandro Tejedor, University of Minnesota 
-Alice Patania, Politecnico di Torino 
-Andre Veski, Tallinn University of Technology 
-Andrew Schauf, National University of Singapore 
-Anna Andreyevna Zaytseva, University of Oslo 
-Bahattin Tolga Oztan, University of California Irvine 
-Brent Schneeman, HomeAaway 1011 5th St Austin Texas
-Carolina Mattsson, Northeastern University 
-Chao Fan, University of Electronic Science and Technology of China 
-Christine Harvey, 7515 Colshire Dr McLean VA 22102
-Christopher Verzijl, ABN AMRO Private Banking International Hindersteinlaan 9-11 3451 EV Netherlands
-Daniel Ari Friedman, Stanford University 
-Daniel Hedblom, The University of Chicago 
-Daniel T Citron, Cornell University 
-Eloy Fisher, Catholic University of Panama 
-Emilia M. Wysocka, University of Edinburgh 
-Federico Battiston, Queen Mary University of London 
-Glenn Magerman, University of Leuven 
-Gyeong-Gyun Ha, Inha University 
-Haitao Shang, University of Minnesota Duluth 
-Ilaria Bertazzi, Università degli Studi di Torino 
-Jae Beum Cho, Seoul South Korea
-Jakub Rojcek, University of Zurich 
-James Caton, George Mason University
-Jarrod J Scott,60 Bigelow Dr East Boothbay ME 04544 
-Jean-Gabriel Young, Université Laval 
-Jelle Bruineberg, University of Amsterdam 
-Jeroen de Wilde, University of Groningen 
-John Thomas, Massachusetts Institute of Technology 
-Juan Carlos Castilla Rho, The University of New South Wales 
-Jun Takahashi, University of Tokyo 
-Junming Huang, University of Electronic Science and Technology of China 
-Keith Burghardt, University of Maryland 
-Kleber Tulio Neves de Almeida Junior,	Universidade Federal do Rio de Janeiro 
-Laura Condon, Colorado School of Mines 
-Laurence Brandenberger, Überlandstrasse 133 8600 Dübendorf Switzerland
-Margaret Simon, UCLA 
-María Pereda García, Universidad de Burgos 
-Marie-Pierre Hasne, Oregon Health & Science University 
-Martina Steffen, University of Arizona 
-Masahiko Haraguchi, Columbia University 
-Matthew Histen, University of Connecticut 
-Matthew Ingram, University at Albany, SUNY 
-Matthew Osmond, University of British Columbia 
-Matthew R. D. Cobain, University of Southampton 
-Michael Smallegan, University of Wisconsin Madison 
-MV Eitzel, University of California Santa Cruz 
-Nilton Cardoso, Insper Brazil
-Oluwasola Emmanuel, Xiamen University China 
-Penny Mealy, University of Oxford 
-Richard Barnes, University of Minnesota 
-Sahil Garg, University of Southern California 
-Sam Way, University of Colorado Boulder 
-Sara Lumbreras, Universidad Pontificia Comillas 
-Sebastian Poledna,Schloßpl. 1 2361 Laxenburg Austria
-Sharon Greenblum, University of Washington 
-Song Binyang, Singapore University of Technology and Design 
-Stefano Gurciullo, University College London 
-Susanne Marie Pettersson, University of Gothenburg 
-Tirthankar Bandyopadhyay, CSIRO 
-Tobias Lee Dahle-Morville, University of Copenhagen, Faculty of Health and Medicine 
-Urs Braun, Universität Heidelberg
-Valeriy Dzutsev, Arizona State University 
-Vanessa Chioffi, 7515 Colshire Dr McLean VA 22102
-William Chang, Memorial Sloan Kettering Cancer Center 
-Yared Abayneh Abebe, UNESCO-IHE Institute for Water Education 
+"name","location","location2"
+"1"," University of Minnesota ",NA
+"2"," Politecnico di Torino ",NA
+"3"," Tallinn University of Technology ",NA
+"4"," National University of Singapore ",NA
+"5"," University of Oslo ",NA
+"6"," University of California Irvine ",NA
+"7"," HomeAaway 1011 5th St Austin Texas",NA
+"8"," Northeastern University ",NA
+"9"," University of Electronic Science and Technology of China ",NA
+"10"," 7515 Colshire Dr McLean VA 22102",NA
+"11"," ABN AMRO Private Banking International Hindersteinlaan 9-11 3451 EV Netherlands",NA
+"12"," Stanford University ",NA
+"13"," The University of Chicago ",NA
+"14"," Cornell University ",NA
+"15"," Catholic University of Panama ",NA
+"16"," University of Edinburgh ",NA
+"17"," Queen Mary University of London ",NA
+"18"," University of Leuven ",NA
+"19"," Inha University ",NA
+"20"," University of Minnesota Duluth ",NA
+"21"," Università degli Studi di Torino ",NA
+"22"," Seoul South Korea",NA
+"23"," University of Zurich ",NA
+"24"," George Mason University",NA
+"25","60 Bigelow Dr East Boothbay ME 04544 ",NA
+"26"," Université Laval ",NA
+"27"," University of Amsterdam ",NA
+"28"," University of Groningen ",NA
+"29"," Massachusetts Institute of Technology ",NA
+"30"," The University of New South Wales ",NA
+"31"," University of Tokyo ",NA
+"32"," University of Electronic Science and Technology of China ",NA
+"33"," University of Maryland ",NA
+"34","	Universidade Federal do Rio de Janeiro ",NA
+"35"," Colorado School of Mines ",NA
+"36"," Überlandstrasse 133 8600 Dübendorf Switzerland",NA
+"37"," UCLA ",NA
+"38"," Universidad de Burgos ",NA
+"39"," Oregon Health & Science University ",NA
+"40"," University of Arizona ",NA
+"41"," Columbia University ",NA
+"42"," University of Connecticut ",NA
+"43"," University at Albany"," SUNY "
+"44"," University of British Columbia ",NA
+"45"," University of Southampton ",NA
+"46"," University of Wisconsin Madison ",NA
+"47"," University of California Santa Cruz ",NA
+"48"," Insper Brazil",NA
+"49"," Xiamen University China ",NA
+"50"," University of Oxford ",NA
+"51"," University of Minnesota ",NA
+"52"," University of Southern California ",NA
+"53"," University of Colorado Boulder ",NA
+"54"," Universidad Pontificia Comillas ",NA
+"55","Schloßpl. 1 2361 Laxenburg Austria",NA
+"56"," University of Washington ",NA
+"57"," Singapore University of Technology and Design ",NA
+"58"," University College London ",NA
+"59"," University of Gothenburg ",NA
+"60"," CSIRO ",NA
+"61"," University of Copenhagen"," Faculty of Health and Medicine "
+"62"," Universität Heidelberg",NA
+"63"," Arizona State University ",NA
+"64"," 7515 Colshire Dr McLean VA 22102",NA
+"65"," Memorial Sloan Kettering Cancer Center ",NA
+"66"," UNESCO-IHE Institute for Water Education ",NA

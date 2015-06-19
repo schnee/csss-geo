@@ -23,17 +23,31 @@ source("./helpers.R")
 # read in the student locations
 students = read_csv("./students.csv")
 
-# geocode all of the students
-geocoded = lapply(students$location, m_geoCode)
+# geoCodedFile is the cached geocoded data. Since this is expensive (http requests), I don't
+# to run this everytime. So, if the file exists, just load it into the env (which will create
+# the "geocoded" data)
 
-save(geocoded, file="geocoded.RData")
+geoCodedFile = "geocoded.RData"
+if(file.access(geoCodedFile)){
+  
+  print("No documents file - generating from scratch. Sit tight")
+  
+  # geocode all of the students
+  geocoded = lapply(students$location, m_geoCode)
+  
+  save(geocoded, file=geoCodedFile)
+  if(false){
+    sfi <- "The Santa Fe Institute"
+    bench = microbenchmark::microbenchmark(geoCode(sfi), 
+                                           m_geoCode(sfi), 
+                                           times = 5)
+    bench
+    autoplot(bench)
+  }
+} else {
+  load(geoCodedFile)
+}
 
-sfi <- "The Santa Fe Institute"
-bench = microbenchmark::microbenchmark(geoCode(sfi), 
-                                       m_geoCode(sfi), 
-                                       times = 5)
-bench
-autoplot(bench)
 
 #augment the student dataframe with the geocoded address, lon and lat
 students$address = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$address} else({NA})))
@@ -101,8 +115,6 @@ tripsList = lapply(1:nrow(travelToSFI),greatCircles,travelToSFI, pb)
 # create a ginormous data frame from the trips list (not really ginormous)
 allTrips = rbindlist(tripsList)
 
-allTripsShift = allTrips
-
 ggplot() + 
   geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.4, colour="#FFFFFF") +
   coord_fixed(ratio=1) +
@@ -169,6 +181,9 @@ baseworld + stat_density2d(data=travelToSFI, aes(x=lon, y=lat, fill=..level..), 
 ####
 # Experimental Crap
 ###
+
+allTripsShift = allTrips
+
 wmap_shift = spTransform(wmap, CRS("+proj=robin +lon_0=90w"))
 wmap_df = fortify(wmap_shift)
 ggplot() +
