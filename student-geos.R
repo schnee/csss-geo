@@ -1,3 +1,4 @@
+# this code block is to ensure that all the required packages are installed. Hopefully
 requiredPackages = c("readr","dplyr",
                      "Imap","ggplot2", 
                      "data.table","grid",
@@ -9,6 +10,7 @@ toInstall <- requiredPackages[!(requiredPackages %in% installed.packages()[,"Pac
 
 if(length(toInstall)) install.packages(toInstall)
 
+# now that they are installed, load them up
 suppressPackageStartupMessages(library(readr))
 suppressPackageStartupMessages(library(Imap))
 suppressPackageStartupMessages(library(dplyr))
@@ -18,6 +20,8 @@ suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(data.table))
 suppressPackageStartupMessages(library(rgdal))
 
+# helpers.R pushes some functions / object out of this script. Helps with a narrative, but the
+# best way to externalize code in R is via package creation
 source("./helpers.R")
 
 # read in the student locations
@@ -49,7 +53,8 @@ if(file.access(geoCodedFile)){
 }
 
 
-#augment the student dataframe with the geocoded address, lon and lat
+# augment the student dataframe with the geocoded address, lon and lat
+# I hate having to write code like this. "unlist(lapply(...))"???
 students$address = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$address} else({NA})))
 students$lon = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$lng} else({NA})))
 students$lat = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$lat} else({NA})))
@@ -79,7 +84,7 @@ ggplot(travelToSFI, aes(x=dist)) + geom_density(adjust=1)
 
 
 # OK, what if we want an area under that kernel density estimate curve?
-# (I don't know why)
+# (I don't know why we want the mass - we just do)
 kde = density(travelToSFI$dist)
 kde_df = data.frame(x=kde$x, y=kde$y)
 
@@ -99,7 +104,7 @@ lats
 both = ggplot(travelToSFI, aes(x=lon, y=lat)) + geom_density2d()
 both
 
-# or even...
+# or even... (note - 'titlePlot' defined in helpers.R)
 grid.arrange(lons, titlePlot, both, lats + coord_flip(), 
              ncol=2, nrow=2, widths=c(3, 1), heights=c(1, 3))
 
@@ -115,6 +120,8 @@ tripsList = lapply(1:nrow(travelToSFI),greatCircles,travelToSFI, pb)
 # create a ginormous data frame from the trips list (not really ginormous)
 allTrips = rbindlist(tripsList)
 
+# all those parameters in the "theme(...)" method set visual aesthetics - no tick marks,
+# black background, no axis titles, etc
 ggplot() + 
   geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.4, colour="#FFFFFF") +
   coord_fixed(ratio=1) +
@@ -128,11 +135,11 @@ ggplot() +
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()) + 
-  ggtitle("FRONT Left Breast")
+        panel.grid.minor = element_blank()) 
 
 ggsave("students-front.png", width=6, height=4, dpi=100)
 
+# Let's get a map
 # read shapefile. Just land boundaries
 wmap <- readOGR(dsn="./shape-files/ne_110m_land", layer="ne_110m_land")
 # convert to dataframe
@@ -162,7 +169,7 @@ baseworld = ggplot() +
 baseworld
 
 baseworld + geom_path(data=allTrips, aes(x=lon, y=lat, group=tripNumber), size=.5, colour="#FFFFFF") +
-  ggtitle("BACK")
+  ggtitle("Complex Systems Summer School 2015")
 
 ggsave("students-back.png", width=6, height=4, dpi=100)
 
