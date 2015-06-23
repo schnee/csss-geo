@@ -34,13 +34,16 @@ students = read_csv("./students.csv")
 geoCodedFile = "geocoded.RData"
 if(file.access(geoCodedFile)){
   
-  print("No documents file - generating from scratch. Sit tight")
+  print("No geocoded data file - generating from scratch. Sit tight")
   
   # geocode all of the students
   geocoded = lapply(students$location, m_geoCode)
   
   save(geocoded, file=geoCodedFile)
-  if(false){
+  
+  # this is FALSED out to not execute it all the time, but it is good to run this
+  # code to demo memoization
+  if(FALSE){
     sfi <- "The Santa Fe Institute"
     bench = microbenchmark::microbenchmark(geoCode(sfi), 
                                            m_geoCode(sfi), 
