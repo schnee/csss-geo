@@ -24,6 +24,11 @@ suppressPackageStartupMessages(library(rgdal))
 # best way to externalize code in R is via package creation
 source("./helpers.R")
 
+#
+# the actual data analysis starts here. above this was more-or-less installing
+# all the required packages.
+#
+
 # read in the student locations
 students = read_csv("./students.csv")
 
