@@ -66,6 +66,15 @@ students$lat = unlist(lapply(geocoded, function(x) if(!is.na(x[[1]])){x$lat} els
 students$longitude.sfi = -105.9086
 students$latitude.sfi = 35.70028
 
+# St Johns to London
+london = geoCode("London UK")
+stjohns = geoCode("St John's Santa Fe")
+
+bearing(c(stjohns$lng, stjohns$lat), c(london$lng, london$lat)) 
+# 39.19
+bearingRhumb(c(stjohns$lng, stjohns$lat), c(london$lng, london$lat))
+# 78.22
+
 # create the travel Data Frame. First, take the students, then filter by not NA values
 # then create a "dist" column then arrange by dist descending
 travelToSFI = students %>% 
